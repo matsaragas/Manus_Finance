@@ -12,7 +12,7 @@ class Manus(ToolCallAgent):
     @classmethod
     async def create(cls, **kwargs) -> "Manus":
         instance = cls(**kwargs)
-        await instance
+        await instance.intialize_mcp_servers()
 
 
 

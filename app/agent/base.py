@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from pydantic import BaseModel, Field, model_validator
 from typing import List, Optional
-
+from app.llm import LLM
 
 class BaseAgent(BaseModel, ABC):
     """
