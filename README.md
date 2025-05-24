@@ -43,3 +43,8 @@ One striking feature is MCP's dynamic discovery  AI agents automatically detect
 available MCP Servers and their capabilities, without hard-coded integrations. For example
 , if you spin up a new MCP server (like CRM), agents can immediately recofnize it and use it
 via a standardized API, offering flexibility.
+
+
+## Langgraph
+
+

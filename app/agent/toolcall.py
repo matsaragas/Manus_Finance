@@ -1,6 +1,7 @@
 from app.agent.react import ReActAgent
 from app.prompt.toolcall import SYSTEM_PROMPT, NEXT_STEP_PROMPT
-from app.tool import CreateChatCompletion, Terminate, ToolColletion
+from app.tool import CreateChatCompletion, Terminate, ToolCollection
+
 
 class ToolCallAgent(ReActAgent):
 
@@ -10,9 +11,8 @@ class ToolCallAgent(ReActAgent):
     system_prompt: str = SYSTEM_PROMPT
     next_step_prompt: str = NEXT_STEP_PROMPT
 
-    available_tools = ToolCollection = ToolColletion(
+    available_tools = ToolCollection = ToolCollection(
         CreateChatCompletion(), Terminate()
-
     )
 
 
