@@ -10,9 +10,11 @@ class Role(str, Enum):
     ASSISTANT = "assistant"
     TOOL = "tool"
 
+
 class Function(BaseModel):
     name: str
     arguments: str
+
 
 class ToolCall(BaseModel):
     id: str
@@ -20,8 +22,17 @@ class ToolCall(BaseModel):
     function: Function
 
 
+class AgentState(str, Enum):
+
+    IDLE = "IDLE"
+    RUNNING = "RUNNING"
+    FINISHED = "FINISHED"
+    ERROR = "ERROR"
+
+
+
 ROLE_VALUES = tuple(role.value for role in Role)
-# only ROLE_VALUES are acceptable in ROLE_TYPE
+# only ROLE_VALUES are acceptable in ROLE_TYPE                                                     nnnnnj n
 ROLE_TYPE = Literal[ROLE_VALUES]
 
 class Message(BaseModel):
@@ -55,5 +66,24 @@ class Message(BaseModel):
             message["content"] = self.content
 
         return message
+
+
+class Memory(BaseModel):
+    messages: List[Message] = Field(default_factory=list)
+    max_messages: int = Field(default=100)
+
+    def add_messaged(self, messages: List[Message]) -> None:
+        self.messages.extend(messages)
+        if len(self.messages) > self.max_messages:
+            self.messages = self.messages[-self.max_messages:]
+
+    def clear(self) -> None:
+        self.messages.clear()
+
+    def get_recent_messages(self, n: int) -> List[Message]:
+        return self.messages[-n:]
+
+    def to_dict_list(self) -> List[dict]:
+        return [msg.to_dict() for msg in self.messages]
 
 
